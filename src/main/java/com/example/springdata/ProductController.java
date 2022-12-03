@@ -4,16 +4,13 @@ import com.example.springdata.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/product")
+@RestController
 public class ProductController {
 
     private final ProductRepository productRepository;
@@ -23,11 +20,10 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping
-    public String getAll(Model model) {
-        List<Product> list = productRepository.findAll();
-        model.addAttribute("productList", list);
-        return "showAll";
+
+    @GetMapping("/products")
+    public List<Product> getAllProduct() {
+        return productRepository.findAll();
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -50,7 +46,7 @@ public class ProductController {
         productRepository.save(createNewProduct("garlic"));
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/products/delete/{id}")
     public void deleteById(@PathVariable Long id) {
         productRepository.deleteById(id);
     }

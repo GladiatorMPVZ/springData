@@ -12,18 +12,18 @@
 <body>
 <div class="container" ng-controller="indexCntroller">
     <h3>Product list</h3>
-    <table>
+    <table class="table table-hover">
         <tr>
             <td>ID</td>
             <td>Название товара</td>
             <td>Удалить</td>
         </tr>
         <tbody>
-        <tr th:each="product : ${productList}">
-            <td th:text="${product.id}"/>
-            <td th:text="${product.title}"/>
+        <tr ng-repeat="p in ProductList">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
             <td>
-                <button type="button" class="btn btn-danger">Удалить</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteProduct(p.id)">Удалить</button>
             </td>
         </tr>
         </tbody>
