@@ -1,7 +1,6 @@
 package com.example.springdata;
 
 import com.example.springdata.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +11,11 @@ import java.util.List;
 
 @RestController
 public class ProductController {
+    private ProductRepository productRepository;
 
-    private final ProductRepository productRepository;
-
-    @Autowired
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
 
     @GetMapping("/products")
     public List<Product> getAllProduct() {

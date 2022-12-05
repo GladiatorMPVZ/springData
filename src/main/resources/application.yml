@@ -1,6 +1,10 @@
+server:
+  port: 8289
+  servlet:
+    context-path: /app
 spring:
     datasource:
-      url: jdbc:h2:mem:test
+      url: jdbc:h2:mem:test;MODE=PostgreSQL
       driver-class-name: org.h2.Driver
       username: sa
       password:
@@ -12,7 +16,5 @@ spring:
     h2:
         console:
             enabled: true
-    server:
-      port: 8180
-      servlet:
-        context-path: /app
+            settings:
+              web-allow-others: false
