@@ -3,9 +3,7 @@ package com.example.springdata;
 import com.example.springdata.repository.ProductRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,32 @@ public class ProductController {
     @GetMapping("/products")
     public List<Product> getAllProduct() {
         return productRepository.findAll();
+    }
+
+    @GetMapping("/products/{id}")
+    public Product getAllProduct(@PathVariable Long id) {
+        return productRepository.findById(id).orElseThrow();
+    }
+
+    @PostMapping("/products")
+    public Product saveNewProduct(@RequestBody Product product) {
+        product.setId(null);
+        return productRepository.save(product);
+    }
+
+    @DeleteMapping("/products/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @DeleteMapping("/products/delete")
+    public void deleteById() {
+        productRepository.deleteAll();
+    }
+
+    @PutMapping("/products")
+    public Product updateStudent(@RequestBody Product product) {
+        return productRepository.save(product);
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -40,11 +64,6 @@ public class ProductController {
         productRepository.save(createNewProduct("eel"));
         productRepository.save(createNewProduct("croissant"));
         productRepository.save(createNewProduct("garlic"));
-    }
-
-    @GetMapping("/products/delete/{id}")
-    public void deleteById(@PathVariable Long id) {
-        productRepository.deleteById(id);
     }
 
     private Product createNewProduct(String title) {
