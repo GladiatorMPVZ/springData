@@ -1,6 +1,7 @@
-package com.example.springdata;
+package com.example.springdata.Controller;
 
-import com.example.springdata.repository.ProductRepository;
+import com.example.springdata.Entity.Product;
+import com.example.springdata.Repository.ProductRepository;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/delete")
-    public void deleteById() {
+    public void deleteAll() {
         productRepository.deleteAll();
     }
 
